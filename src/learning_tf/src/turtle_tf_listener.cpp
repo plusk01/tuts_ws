@@ -25,8 +25,11 @@ int main(int argc, char** argv) {
         tf::StampedTransform transform;
 
         try {
+            // Change this `1` to a `0` if you want to use the carrot to control
+            std::string target_frame = (0) ? "/turtle1" : "/carrot1";
+
             // ros::Time(0) just says "give me the latest"
-            listener.lookupTransform("/turtle2", "/turtle1", ros::Time(0), transform);
+            listener.lookupTransform("/turtle2", target_frame, ros::Time(0), transform);
 
             // source (from): "/turtle2"
             // target   (to): "/turtle1"
