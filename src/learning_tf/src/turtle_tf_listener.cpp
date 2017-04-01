@@ -26,10 +26,15 @@ int main(int argc, char** argv) {
 
         try {
             // Change this `1` to a `0` if you want to use the carrot to control
-            std::string target_frame = (0) ? "/turtle1" : "/carrot1";
+            std::string target_frame = (1) ? "/turtle1" : "/carrot1";
 
             // ros::Time(0) just says "give me the latest"
-            listener.lookupTransform("/turtle2", target_frame, ros::Time(0), transform);
+            // listener.lookupTransform("/turtle2", target_frame, ros::Time(0), transform);
+
+            // Instead of getting the latest tf, let's wait
+            ros::Time now = ros::Time::now();
+            listener.waitForTransform("/turtle2", target_frame, now, ros::Duration(3.0));
+            listener.lookupTransform("/turtle2", target_frame, now, transform);
 
             // source (from): "/turtle2"
             // target   (to): "/turtle1"
